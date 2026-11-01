@@ -27,12 +27,11 @@ COPY . .
 # 5. Ensure storage directories exist
 RUN mkdir -p weights uploads && (cp yolov8n.pt weights/yolov8n.pt 2>/dev/null || true)
 
-# Hugging Face Spaces uses 7860, Render uses 10000 / 
+# Hugging Face Spaces uses 7860, Render uses 10000 / $PORT
 EXPOSE 7860 10000 8000
 
 # Set memory-friendly defaults (tiny Whisper model fits in free tier RAM)
 ENV WHISPER_MODEL_SIZE=tiny
-ENV PORT=7860
 
-# Run uvicorn server (binds dynamically to , defaulting to 7860 for Hugging Face or  on Render)
-CMD ["sh", "-c", "uvicorn backend.app.main:app --host 0.0.0.0 --port "]
+# Run uvicorn server with dynamic port fallback
+CMD ["sh", "-c", "uvicorn backend.app.main:app --host 0.0.0.0 --port ${PORT:-10000}"]
