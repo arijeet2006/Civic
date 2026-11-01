@@ -65,7 +65,6 @@
       box-shadow: 0 0 10px rgba(16, 185, 129, 0.8);
       border-radius: 50%;
     }
-        /* Dark mode CSS filter for standard keyless OpenStreetMap tiles */
     .dark-tiles {
       filter: brightness(0.6) invert(1) contrast(3) hue-rotate(200deg) saturate(0.3) brightness(0.7);
     }
@@ -120,8 +119,8 @@
   <!-- Main 3-Pane Container -->
   <main class="flex-1 flex flex-col lg:flex-row overflow-hidden relative">
 
-    <!-- LEFT PANE: Citizen Report Portal & Verification (360px) -->
-    <aside class="w-full lg:w-[380px] bg-slate-900 border-r border-slate-800 flex flex-col shrink-0 overflow-y-auto">
+    <!-- LEFT PANE: Citizen Report Portal & Verification (380px) -->
+    <aside class="w-full lg:w-[380px] bg-slate-900 border-r border-slate-800 flex flex-col shrink-0 overflow-y-auto max-h-[calc(100vh-60px)]">
       
       <!-- Sub-tabs -->
       <div class="flex border-b border-slate-800 bg-slate-950/60 sticky top-0 z-10">
@@ -269,7 +268,6 @@
 
     <!-- CENTER PANE: Interactive Leaflet Map with DBSCAN Clusters -->
     <section class="flex-1 flex flex-col min-h-[350px] lg:min-h-0 relative">
-      <!-- Map filter control bar -->
       <div class="absolute top-3 left-14 z-[1000] bg-slate-900/90 border border-slate-700/80 rounded-xl p-1.5 shadow-xl backdrop-blur flex items-center gap-2 text-xs">
         <button onclick="filterMap('ALL')" id="flt-all" class="px-2.5 py-1 rounded-lg bg-emerald-600 text-white font-medium">All</button>
         <button onclick="filterMap('CRITICAL')" id="flt-crit" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300">Critical SLA</button>
@@ -285,8 +283,8 @@
       <div id="map" class="w-full bg-slate-950" style="min-height: 350px; height: 100%; position: relative;"></div>
     </section>
 
-    <!-- RIGHT PANE: Real-Time Triage Inspector & Mathematical Breakdown (400px) -->
-    <aside class="w-full lg:w-[410px] bg-slate-900 border-l border-slate-800 flex flex-col shrink-0 overflow-y-auto">
+    <!-- RIGHT PANE: Real-Time Triage Inspector & Mathematical Breakdown (410px) -->
+    <aside class="w-full lg:w-[410px] bg-slate-900 border-l border-slate-800 flex flex-col shrink-0 overflow-y-auto max-h-[calc(100vh-60px)]">
       
       <div class="p-4 border-b border-slate-800 flex items-center justify-between bg-slate-950/60 sticky top-0 z-10">
         <div class="text-xs font-bold text-white flex items-center gap-2">
@@ -299,7 +297,6 @@
       <!-- Selected Ticket Content -->
       <div id="inspector-body" class="p-4 space-y-4 flex-1">
         
-        <!-- Welcome empty state -->
         <div id="inspector-empty" class="text-center py-12 space-y-3">
           <div class="w-12 h-12 rounded-full bg-slate-800/80 border border-slate-700 mx-auto flex items-center justify-center text-slate-400">
             <i data-lucide="map-pinned" class="w-6 h-6"></i>
@@ -307,10 +304,8 @@
           <p class="text-xs text-slate-400 max-w-xs mx-auto">Click on any map pin or submit a new grievance to inspect multimodal severity, YOLO bounding boxes, and live SLA countdowns.</p>
         </div>
 
-        <!-- Dynamic Card Loaded on Click -->
         <div id="inspector-details" class="hidden space-y-4">
           
-          <!-- Header Banner -->
           <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 space-y-2">
             <div class="flex items-center justify-between">
               <span id="card-category" class="text-xs font-bold text-white">Category</span>
@@ -324,7 +319,6 @@
               <i data-lucide="map-pin" class="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5"></i>
               <span id="card-address" class="line-clamp-2">Address</span>
             </div>
-            <!-- Media type badge -->
             <div id="card-media-badge" class="hidden">
               <span class="text-[10px] px-2 py-0.5 rounded bg-purple-950 text-purple-400 border border-purple-800 flex items-center gap-1 w-fit">
                 <i data-lucide="video" class="w-3 h-3"></i>
@@ -333,7 +327,6 @@
             </div>
           </div>
 
-          <!-- Dynamic SLA Countdown & Crowd Confirmations -->
           <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 space-y-2">
             <div class="flex items-center justify-between text-xs">
               <span class="text-slate-400 font-medium flex items-center gap-1.5">
@@ -355,7 +348,6 @@
             </div>
           </div>
 
-          <!-- Annotated Image / Video / Before-After Preview -->
           <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 space-y-2">
             <div class="flex items-center justify-between text-xs font-semibold text-slate-300">
               <span class="flex items-center gap-1.5">
@@ -367,7 +359,6 @@
               <img id="card-img" class="w-full h-48 object-contain" src="" alt="Defect detection" />
             </div>
 
-            <!-- Video player (shown when media_type === "video") -->
             <div id="card-video-section" class="hidden pt-2 border-t border-slate-800 space-y-1">
               <span class="text-[11px] text-purple-400 font-semibold flex items-center gap-1">
                 <i data-lucide="film" class="w-3 h-3"></i> Original Video Evidence
@@ -379,7 +370,6 @@
               </div>
             </div>
 
-            <!-- After-repair image/video -->
             <div id="card-after-container" class="hidden pt-2 border-t border-slate-800 space-y-1">
               <span class="text-[11px] text-emerald-400 font-semibold flex items-center gap-1">
                 <i data-lucide="shield-check" class="w-3 h-3"></i> Verified "After" Proof of Fix
@@ -387,7 +377,6 @@
               <img id="card-after-img" class="w-full h-36 object-contain rounded border border-emerald-900/60" src="" alt="After Repair" />
             </div>
 
-            <!-- After-repair video (when video proof used) -->
             <div id="card-after-video-container" class="hidden pt-2 border-t border-slate-800 space-y-1">
               <span class="text-[11px] text-emerald-400 font-semibold flex items-center gap-1">
                 <i data-lucide="shield-check" class="w-3 h-3"></i> Verified "After" Video Proof
@@ -396,7 +385,6 @@
             </div>
           </div>
 
-          <!-- Mathematical Severity Breakdown S in [0, 1] -->
           <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 space-y-2.5">
             <div class="flex items-center justify-between">
               <div class="text-xs font-bold text-white flex items-center gap-1">
@@ -407,12 +395,10 @@
               <span id="card-sev-level" class="text-[10px] px-2 py-0.5 rounded font-bold bg-amber-950 text-amber-400 border border-amber-800">MODERATE</span>
             </div>
 
-            <!-- KaTeX / Formula representation -->
             <div class="text-[10px] font-mono text-slate-400 bg-slate-900 p-2 rounded border border-slate-800/80 overflow-x-auto">
               S = 0.30·C<sub>conf</sub> + 0.35·R<sub>area</sub> + 0.20·W<sub>hazard</sub> + 0.15·E<sub>weather</sub>
             </div>
 
-            <!-- Segmented Progress Bar -->
             <div class="space-y-1 text-[11px]">
               <div class="flex justify-between text-slate-400">
                 <span>Confidence term (0.30):</span>
@@ -433,7 +419,6 @@
             </div>
           </div>
 
-          <!-- Live Environmental Amplification (Open-Meteo) -->
           <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 space-y-2">
             <div class="text-xs font-semibold text-slate-300 flex items-center justify-between">
               <span class="flex items-center gap-1.5">
@@ -457,7 +442,6 @@
             </div>
           </div>
 
-          <!-- Audio Voice Note & Urgency Keywords -->
           <div id="card-audio-section" class="bg-slate-950 p-3 rounded-xl border border-slate-800 space-y-2 hidden">
             <span class="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
               <i data-lucide="volume-2" class="w-3.5 h-3.5 text-emerald-400"></i> Whisper Transcript & Urgency
@@ -466,7 +450,6 @@
             <div id="card-keywords" class="flex flex-wrap gap-1"></div>
           </div>
 
-          <!-- Audit Log Trail -->
           <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 space-y-2">
             <span class="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
               <i data-lucide="file-text" class="w-3.5 h-3.5 text-slate-400"></i> Immutable Audit Trail
@@ -476,7 +459,6 @@
 
         </div>
 
-        <!-- Real-time Analytics Visualizer (Charts) -->
         <div class="pt-2 border-t border-slate-800 space-y-3">
           <div class="text-xs font-bold text-slate-300 flex items-center gap-1.5">
             <i data-lucide="bar-chart-3" class="w-3.5 h-3.5 text-emerald-400"></i> Department Workload
@@ -493,6 +475,9 @@
   </main>
 
   <script>
+    // Explicit Live Backend Base URL
+    const API_BASE = "https://civicpulse-gn4n.onrender.com";
+
     // State management
     let map = null;
     let markersLayer = null;
@@ -512,7 +497,6 @@
     // Charts
     let deptChart = null;
 
-    // Video file extensions for client-side detection
     const VIDEO_EXTENSIONS = ['.mp4', '.webm', '.mov', '.avi', '.mkv', '.m4v', '.flv', '.wmv'];
     function isVideoFile(filename) {
       if (!filename) return false;
@@ -520,7 +504,6 @@
       return VIDEO_EXTENSIONS.includes(ext);
     }
 
-    // Initialize Map and App on Load
     document.addEventListener("DOMContentLoaded", () => {
       lucide.createIcons();
       initMap();
@@ -528,7 +511,6 @@
       fetchTickets();
       fetchAnalytics();
 
-      // Poll analytics & live countdowns every 20 seconds
       setInterval(() => {
         fetchTickets(false);
         fetchAnalytics();
@@ -536,35 +518,28 @@
     });
 
     function initMap() {
-      // Default initial view centered (Delhi coordinates as starting view until GPS fetched)
       map = L.map('map', { zoomControl: false }).setView([28.6139, 77.2090], 13);
       L.control.zoom({ position: 'bottomright' }).addTo(map);
 
-      // Official OpenStreetMap tile layer (100% free, keyless, zero quota limits)
       const tileLayer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
         className: 'dark-tiles',
         maxZoom: 19
       }).addTo(map);
 
-      // Force Leaflet to recompute container size (fixes 0x0 rendering on flexbox layouts)
       setTimeout(() => { if (map) map.invalidateSize(); }, 250);
 
-      // Show fallback while tiles load
       setupMapTileFallback(document.getElementById('map'));
 
-      // Hide fallback once at least one tile loads successfully
       tileLayer.once('tileload', () => {
         clearMapFallback();
       });
 
-      // Fallback after 5s if no tile ever loads
       setTimeout(() => clearMapFallback(), 5000);
 
       markersLayer = L.layerGroup().addTo(map);
       clusterRingsLayer = L.layerGroup().addTo(map);
 
-      // On map click -> update coordinates in form & query live Nominatim reverse geocode
       map.on('click', async (e) => {
         const { lat, lng } = e.latlng;
         setCoordinatesInForm(lat, lng);
@@ -603,7 +578,7 @@
             data = await res.json();
           } else {
             const errText = await res.text();
-            throw new Error('Server returned HTTP ' + res.status + ': ' + (errText.slice(0, 140) || 'Service timeout or gateway error'));
+            throw new Error('Server returned HTTP ' + res.status + ': ' + (errText.slice(0, 140) || 'Service timeout'));
           }
           preview.innerHTML = `<span class="text-emerald-400 font-semibold">OSM:</span> ${data.display_name}`;
           return;
@@ -614,7 +589,6 @@
       preview.innerHTML = `<span class="text-slate-500">Live GPS:</span> ${lat.toFixed(5)}° N, ${lon.toFixed(5)}° E`;
     }
 
-    // ── Leaflet tile‑load fallback (shows when tiles can't be fetched) ──────────
     function setupMapTileFallback(mapEl) {
       const fallbackDiv = document.createElement('div');
       fallbackDiv.id = 'map-tile-fallback';
@@ -638,7 +612,6 @@
       mapEl.parentNode.style.position = 'relative';
       mapEl.parentNode.style.minHeight = '350px';
       mapEl.parentNode.appendChild(fallbackDiv);
-      // Hide the fallback after 5s if map recovers
       const timer = setTimeout(() => {
         const fb = document.getElementById('map-tile-fallback');
         if (fb) fb.style.display = 'none';
@@ -686,8 +659,6 @@
       );
     }
 
-    // ── Media Preview Handlers (Image + Video) ──────────────────────────────────
-
     function handleMediaPreview(e) {
       const file = e.target.files[0];
       if (!file) return;
@@ -696,16 +667,13 @@
       const vidPreview = document.getElementById('media-preview-video');
       const prompt = document.getElementById('media-upload-prompt');
 
-      // Reset both previews
       imgPreview.classList.add('hidden');
       vidPreview.classList.add('hidden');
 
       if (file.type.startsWith('video/') || isVideoFile(file.name)) {
-        // Show video preview
         vidPreview.src = URL.createObjectURL(file);
         vidPreview.classList.remove('hidden');
       } else {
-        // Show image preview
         imgPreview.src = URL.createObjectURL(file);
         imgPreview.classList.remove('hidden');
       }
@@ -784,7 +752,6 @@
       }
     }
 
-    // Submit Grievance Report
     async function submitGrievanceReport() {
       const lat = document.getElementById('input-lat').value;
       const lon = document.getElementById('input-lon').value;
@@ -824,7 +791,7 @@
       }
 
       try {
-        const res = await fetch('/api/v1/reports', {
+        const res = await fetch(`${API_BASE}/api/v1/reports`, {
           method: 'POST',
           body: formData
         });
@@ -867,7 +834,6 @@
       }
     }
 
-    // Submit Proof of Fix Verification
     async function submitProofOfFix() {
       const ticketCode = document.getElementById('verify-ticket-input').value.trim();
       const mediaInput = document.getElementById('input-verify-media');
@@ -896,7 +862,7 @@
       formData.append('media', file);
 
       try {
-        const res = await fetch(`/api/v1/tickets/${ticketCode}/verify-fix`, {
+        const res = await fetch(`${API_BASE}/api/v1/tickets/${ticketCode}/verify-fix`, {
           method: 'POST',
           body: formData
         });
@@ -936,10 +902,9 @@
       }
     }
 
-    // Fetch and render tickets on map
     async function fetchTickets(recenter = false) {
       try {
-        const res = await fetch('/api/v1/tickets');
+        const res = await fetch(`${API_BASE}/api/v1/tickets`);
         if (res.ok) {
           allTickets = await res.json();
           renderMarkers();
@@ -982,10 +947,9 @@
         const marker = L.marker([t.latitude, t.longitude], { icon: customIcon });
         const mediaIcon = t.media_type === 'video' ? '🎬' : '📷';
         marker.on('click', () => selectTicket(t));
-        marker.bindTooltip(`<b>#${t.tracking_code}</b> ${mediaIcon}: ${t.category} (${Math.round(t.severity_score * 100)}%)`, { direction: 'top', offset: [0, -8] });
+        marker.bindTooltip(`<b>#${t.tracking_code}</b> ${mediaIcon}: ${t.category} (${Math.round((t.severity_score || 0) * 100)}%)`, { direction: 'top', offset: [0, -8] });
         markersLayer.addLayer(marker);
 
-        // Render 35m DBSCAN clustering circle
         if (t.status !== 'VERIFIED_RESOLVED') {
           const circle = L.circle([t.latitude, t.longitude], {
             radius: 35.0,
@@ -1026,7 +990,6 @@
       document.getElementById('card-dept').innerText = t.department;
       document.getElementById('card-address').innerText = t.address || `${t.latitude.toFixed(5)}°, ${t.longitude.toFixed(5)}° (${t.ward_name})`;
 
-      // Media type badge
       const mediaBadge = document.getElementById('card-media-badge');
       if (t.media_type === 'video') {
         mediaBadge.classList.remove('hidden');
@@ -1035,7 +998,6 @@
         mediaBadge.classList.add('hidden');
       }
 
-      // SLA
       const slaRemaining = t.sla_remaining_hours;
       document.getElementById('card-sla-badge').innerText = `${slaRemaining > 0 ? slaRemaining : 0}h remaining`;
       const slaPercent = Math.max(0, Math.min(100, (slaRemaining / t.sla_hours) * 100));
@@ -1043,7 +1005,6 @@
       document.getElementById('card-sla-status').innerText = t.sla_status;
       document.getElementById('card-upvotes').innerText = `${t.upvote_count} citizen confirmation${t.upvote_count > 1 ? 's' : ''}`;
 
-      // Images
       const img = document.getElementById('card-img');
       img.src = t.annotated_image_url || t.original_image_url;
       const confTag = document.getElementById('card-conf-tag');
@@ -1055,7 +1016,6 @@
         confTag.className = 'text-[10px] text-emerald-400 font-semibold font-mono';
       }
 
-      // Video player (original video evidence)
       const videoSection = document.getElementById('card-video-section');
       if (t.media_type === 'video' && t.video_url) {
         videoSection.classList.remove('hidden');
@@ -1067,7 +1027,6 @@
         videoSection.classList.add('hidden');
       }
 
-      // After-repair image
       const afterContainer = document.getElementById('card-after-container');
       const afterVideoContainer = document.getElementById('card-after-video-container');
       if (t.verification_video_url) {
@@ -1083,19 +1042,17 @@
         afterVideoContainer.classList.add('hidden');
       }
 
-      // Severity math breakdown
-      document.getElementById('card-sev-score').innerText = t.severity_score.toFixed(2);
-      const confTerm = (0.30 * t.confidence_score).toFixed(3);
-      const areaTerm = (0.35 * t.area_ratio).toFixed(3);
-      const hazardTerm = (0.20 * t.hazard_weight).toFixed(3);
-      const weatherTerm = (0.15 * t.weather_risk).toFixed(3);
+      document.getElementById('card-sev-score').innerText = (t.severity_score || 0).toFixed(2);
+      const confTerm = (0.30 * (t.confidence_score || 0)).toFixed(3);
+      const areaTerm = (0.35 * (t.area_ratio || 0)).toFixed(3);
+      const hazardTerm = (0.20 * (t.hazard_weight || 0)).toFixed(3);
+      const weatherTerm = (0.15 * (t.weather_risk || 0)).toFixed(3);
 
-      document.getElementById('term-conf').innerText = `${confTerm} (C: ${t.confidence_score})`;
-      document.getElementById('term-area').innerText = `${areaTerm} (R: ${t.area_ratio})`;
-      document.getElementById('term-hazard').innerText = `${hazardTerm} (W: ${t.hazard_weight})`;
-      document.getElementById('term-weather').innerText = `${weatherTerm} (E: ${t.weather_risk})`;
+      document.getElementById('term-conf').innerText = `${confTerm} (C: ${t.confidence_score || 0})`;
+      document.getElementById('term-area').innerText = `${areaTerm} (R: ${t.area_ratio || 0})`;
+      document.getElementById('term-hazard').innerText = `${hazardTerm} (W: ${t.hazard_weight || 0})`;
+      document.getElementById('term-weather').innerText = `${weatherTerm} (E: ${t.weather_risk || 0})`;
 
-      // Severity level badge color
       const sevLevel = document.getElementById('card-sev-level');
       if (t.severity_score >= 0.75) {
         sevLevel.innerText = 'CRITICAL';
@@ -1111,13 +1068,11 @@
         sevLevel.className = 'text-[10px] px-2 py-0.5 rounded font-bold bg-emerald-950 text-emerald-400 border border-emerald-800';
       }
 
-      // Weather
       const weather = t.weather_details || {};
       document.getElementById('weather-precip').innerText = `${weather.precipitation_mm || 0} mm/h`;
       document.getElementById('weather-temp').innerText = `${weather.temperature_c || 25}°C`;
       document.getElementById('weather-cond').innerText = weather.condition_text || 'Clear';
 
-      // Audit logs
       const auditDiv = document.getElementById('card-audit-trail');
       auditDiv.innerHTML = '';
       if (t.audit_logs && t.audit_logs.length > 0) {
@@ -1129,18 +1084,14 @@
         });
       }
 
-      // Prepopulate verify code in verify tab
       document.getElementById('verify-ticket-input').value = t.tracking_code;
-
-      // Pan to ticket location
       map.panTo([t.latitude, t.longitude]);
       lucide.createIcons();
     }
 
-    // Analytics & Charts
     async function fetchAnalytics() {
       try {
-        const res = await fetch('/api/v1/analytics');
+        const res = await fetch(`${API_BASE}/api/v1/analytics`);
         if (res.ok) {
           let data;
           const contentType = res.headers.get('content-type') || '';
@@ -1249,36 +1200,28 @@
       });
     }
 
-    // ── Clear the entire grievance form ──────────────────────────────────────────
     function clearReportForm() {
-      // 1. Reset GPS coordinates
       document.getElementById('input-lat').value = '';
       document.getElementById('input-lon').value = '';
-      // 2. Clear address preview
       const addrPreview = document.getElementById('live-address-preview');
       addrPreview.innerHTML = '<span class="text-slate-500">Reverse Geocoded Address:</span> Click map or fetch GPS';
 
-      // 3. Reset category dropdown
       const categorySelect = document.getElementById('input-category');
-      categorySelect.selectedIndex = 0;  // "Pothole / Road Damage"
+      categorySelect.selectedIndex = 0;
 
-      // 4. Clear description textarea
       const descTextarea = document.getElementById('input-description');
       descTextarea.value = '';
 
-      // 5. Hide media preview
       const imgPreview = document.getElementById('media-preview-img');
       const vidPreview = document.getElementById('media-preview-video');
       const mediaPrompt = document.getElementById('media-upload-prompt');
       imgPreview.classList.add('hidden');
       vidPreview.classList.add('hidden');
-      mediaPrompt.classList.remove('hidden');  // show the "upload" prompt again
+      mediaPrompt.classList.remove('hidden');
 
-      // 6. Reset file input (clear any selected files)
       const mediaInput = document.getElementById('input-media');
-      mediaInput.value = '';  // reset file list
+      mediaInput.value = '';
 
-      // 7. Stop voice recording if active
       const btnRecord = document.getElementById('btn-record-voice');
       const recordText = document.getElementById('record-text');
       const timer = document.getElementById('voice-timer');
@@ -1299,23 +1242,16 @@
       playback.classList.add('hidden');
       playback.src = '';
 
-      // 8. Clear status banner
       const banner = document.getElementById('submit-status-banner');
       banner.classList.add('hidden');
       banner.innerHTML = '';
 
-      // 9. Remove map click marker if present
-      const mapMarker = document.getElementById('current-map-click-marker');
       if (currentMapClickMarker) {
         map.removeLayer(currentMapClickMarker);
         currentMapClickMarker = null;
       }
-
-      // 10. Reset voice recorder state variables globally
-      // (they'll be re‑initialized on next recording)
+      clearMapFallback();
     }
-    // 11. If a tile-fallback was showing, hide it when clearing the form
-    clearMapFallback();
   </script>
 </body>
 </html>
