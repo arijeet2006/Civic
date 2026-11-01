@@ -1,0 +1,23 @@
+﻿--extra-index-url https://download.pytorch.org/whl/cpu
+
+# 1. CPU-Only PyTorch (must be at the top so dependencies don't pull CUDA)
+torch>=2.0.0
+torchvision>=0.15.0
+
+# 2. Vision & Audio (Headless OpenCV prevents GUI compile timeout)
+opencv-python-headless>=4.9.0.80
+pillow>=10.2.0
+numpy>=1.26.0
+openai-whisper>=20231117
+ultralytics>=8.1.0
+
+# 3. Core API & Database
+fastapi>=0.109.0
+uvicorn[standard]>=0.27.0
+sqlalchemy>=2.0.25
+pydantic>=2.6.0
+pydantic-settings>=2.1.0
+httpx>=0.26.0
+python-multipart>=0.0.7
+scikit-learn>=1.4.0
+aiofiles>=23.2.1
